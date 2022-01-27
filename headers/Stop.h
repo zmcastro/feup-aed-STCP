@@ -7,6 +7,9 @@
 
 
 class Stop {
+private:
+    string code, name, zone;
+    float latitude, longitude;
 
 };
 
