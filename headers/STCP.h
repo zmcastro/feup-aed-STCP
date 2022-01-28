@@ -4,5 +4,11 @@
 
 #ifndef AEDPROJ2_STCP_H
 #define AEDPROJ2_STCP_H
+class STCP {
+public:
+    STCP::STCP();
+    void Interface();
+    void bestTripInterface();
+};
 
 #endif //AEDPROJ2_STCP_H
