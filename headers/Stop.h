@@ -27,6 +27,9 @@ public:
     double getLatitude() const;
     double getLongitude() const;
 
+    bool operator==(const Stop& s) {
+        return this->code == s.code;
+    }
 };
 
 

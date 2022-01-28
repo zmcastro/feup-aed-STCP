@@ -25,7 +25,6 @@ int Graph::findNode(const int &index) {
 }
 
 void Graph::dijkstra(const int &index) {
-
     std::set<std::pair<int, int>> q;
     for (int v = 1; v <= n; v++) {
         nodes[v].pred = -1;
@@ -59,7 +58,6 @@ void Graph::dijkstra(const int &index) {
 
 std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     std::list<int> path;
-
     dijkstra(idx1);
     if (nodes[idx2].dist == INF) return path;
     path.push_back(idx2);

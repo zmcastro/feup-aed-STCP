@@ -9,26 +9,19 @@
 #include <vector>
 #include <unordered_map>
 #include "Stop.h"
+#include "Graph.h"
 
 class PathMap {
 private:
     std::vector<Stop> stops;
     std::vector<std::string> lines;
-    std::unordered_map<Stop, int> stopIdx;
-
-    //usar no construtor
-    void mapStops() {
-        for (int i = 0; i < stops.size(); i++)
-        {
-            stopIdx[stops.at(i)] = i;
-        }
-    }
 
 public:
+    Graph makeGraph(int src);
+
     int getStopIndex(const Stop &stop);
     int getStopIndex(const std::string &code);
-    Stop getStop(const int &idx);
-
+    Stop findStop(const int &idx);
 
 };
 

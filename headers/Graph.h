@@ -25,7 +25,7 @@ class Graph {
         bool visited;
         int pred;
         double dist;
-
+        Stop stop;
         int stopIdx;
     };
 
@@ -33,16 +33,19 @@ class Graph {
     bool hasDir;        // false: undirect; true: directed
     std::vector<Node> nodes; // The list of nodes being represented
 
-    void dijkstra(const int &index);
-
 public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
+    void dijkstra(const int &index);
+
     // Add edge from source to destination with a certain weight
     void addEdge(int src, int dest, double weight = 1);
 
+    void addNode(const Stop &stop);
+
     int findNode(const int &index);
+
     //Stop getNearest(const Stop &stop);
 
     // ----- Functions to implement in this class -----
