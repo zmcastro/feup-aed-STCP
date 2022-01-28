@@ -14,8 +14,8 @@
 
 class Graph {
     struct Edge {
-        int dest;   // Destination node
-        int weight; // An integer weight
+        std::string dest;   // Destination node (using stop code)
+        double weight; // An integer weight
         std::string line; //
     };
 
@@ -24,6 +24,7 @@ class Graph {
         bool visited;
         int pred;
         double dist;
+
         Stop stop;
     };
 
