@@ -10,11 +10,12 @@
 #include <list>
 #include <limits>
 #include <set>
+#include <unordered_map>
 #include "Stop.h"
 
 class Graph {
     struct Edge {
-        std::string dest;   // Destination node (using stop code)
+        int dest;   // Destination node (using stop code)
         double weight; // An integer weight
         std::string line; //
     };
@@ -25,28 +26,28 @@ class Graph {
         int pred;
         double dist;
 
-        Stop stop;
+        int stopIdx;
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
     bool hasDir;        // false: undirect; true: directed
     std::vector<Node> nodes; // The list of nodes being represented
 
-    void dijkstra(const std::string &code);
+    void dijkstra(const int &index);
 
 public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
     // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, int weight = 1);
+    void addEdge(int src, int dest, double weight = 1);
 
-    int findNode(const std::string &code);
+    int findNode(const int &index);
     //Stop getNearest(const Stop &stop);
 
     // ----- Functions to implement in this class -----
-    double dijkstra_distance(const std::string &code1, const std::string &code2);
-    std::list<int> dijkstra_path(const std::string &code1, const std::string &code2);
+    double dijkstra_distance(const int &index1, const int &index2);
+    std::list<int> dijkstra_path(const int &index1, const int &index2);
 };
 
 

@@ -10,24 +10,21 @@ Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) {
 }
 
 // Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, int weight) {
-    if (src<1 || src>n || dest<1 || dest>n) return;
+void Graph::addEdge(int src, int dest, double weight) {
+    //wrong, check if graph already has stop;;; if (src<1 || src>n || dest<1 || dest>n) return;
     nodes[src].adj.push_back({dest, weight});
     if (!hasDir) nodes[dest].adj.push_back({src, weight});
 }
 
-int Graph::findNode(const std::string &code) {
+int Graph::findNode(const int &index) {
     for (int i = 0; i < nodes.size(); i++) {
-        if (nodes[i].stop.getCode() == code)
+        if (nodes[i].stopIdx == index)
             return i;
     }
     return -1;
 }
 
-void Graph::dijkstra(const std::string &code) {
-    int s = findNode(code);
-    if (s == -1)
-        return;
+void Graph::dijkstra(const int &index) {
 
     std::set<std::pair<int, int>> q;
     for (int v = 1; v <= n; v++) {
@@ -37,10 +34,10 @@ void Graph::dijkstra(const std::string &code) {
         nodes[v].visited = false;
     }
 
-    nodes[s].dist = 0;
-    q.erase({INF, s});
-    q.insert({0, s});
-    nodes[s].pred = s;
+    nodes[index].dist = 0;
+    q.erase({INF, index});
+    q.insert({0, index});
+    nodes[index].pred = index;
     while (q.size() > 0) {
         int u = q.begin()->second;
         q.erase(q.begin());
@@ -60,15 +57,10 @@ void Graph::dijkstra(const std::string &code) {
 }
 
 
-std::list<int> Graph::dijkstra_path(const std::string &code1, const std::string &code2) {
+std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     std::list<int> path;
 
-    int idx1 = findNode(code1);
-    int idx2 = findNode(code2);
-    if (idx1 == -1 || idx2 == -1)
-        return path;
-
-    dijkstra(code1);
+    dijkstra(idx1);
     if (nodes[idx2].dist == INF) return path;
     path.push_back(idx2);
     int v = idx2;
@@ -79,13 +71,9 @@ std::list<int> Graph::dijkstra_path(const std::string &code1, const std::string 
     return path;
 }
 
-double Graph::dijkstra_distance(const std::string &code1, const std::string &code2) {
-    int idx1 = findNode(code1);
-    int idx2 = findNode(code2);
-    if (idx1 == -1 || idx2 == -1)
-        return -1;
-
-    dijkstra(code1);
+double Graph::dijkstra_distance(const int &idx1, const int &idx2) {
+    dijkstra(idx1);
     if (nodes[idx2].dist == INF) return -1;
     return nodes[idx2].dist;
 }
+
