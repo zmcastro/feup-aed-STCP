@@ -55,6 +55,26 @@ void Graph::dijkstra(const int &index) {
     }
 }
 
+void Graph :: bfs(int v) {
+// initialize all nodes as unvisited
+    for (int v=1; v<=n; v++) nodes[v].visited = false;
+    std::queue<int> q; // queue of unvisited nodes
+    q.push(v);
+    nodes[v].dist = 0;
+    nodes[v].visited = true ;
+    while (!q.empty ()) { // while there are still unprocessed nodes
+        int u = q.front (); q.pop (); // remove first element of q
+        //std::cout << u << " "; // show node order
+        for (auto e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) { // new node!
+                q.push(w);
+                nodes[w].visited = true ;
+                nodes[w].dist = nodes[u].dist + 1;
+            }
+        }
+    }
+}
 
 std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     std::list<int> path;

@@ -5,9 +5,11 @@
 #ifndef AEDPROJ2_GRAPH_H
 #define AEDPROJ2_GRAPH_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <list>
+#include <queue>
 #include <limits>
 #include <set>
 #include <unordered_map>
@@ -47,6 +49,8 @@ public:
     int findNode(const std::string &code);
 
     //Stop getNearest(const Stop &stop);
+
+    void bfs(int v);
 
     // ----- Functions to implement in this class -----
     double dijkstra_distance(const int &index1, const int &index2);
