@@ -1,17 +1,20 @@
 //
-// Created by mroch on 27/01/2022.
+// Created by zemar on 28/01/2022.
 //
+
+#define INFstream (std::numeric_limits<std::streamsize>::max()/2)
+
 #include <map>
 #include <vector>
 #include <limits>
-#include <zconf.h>
 #include <fstream>
 #include <sstream>
+#include <unistd.h>
 #include "../headers/STCP.h"
 #include "Auxiliary.cpp"
 
 STCP::STCP() {
-
+/*
     std::map<int, std::pair<std::string, std::string>> idStopZone;
     std::map<int, std::pair<double, double>> idCoor;
     std::map<std::string, int> codeID;
@@ -75,8 +78,7 @@ STCP::STCP() {
         throw "NoLinesFound!";
     }
     infileLines.close();
-
-
+*/
 }
 
 
@@ -108,17 +110,17 @@ void STCP::Interface()
                 case 0:
                     exit(0);
                 default:
-                    std::cout << "Please enter a valid command. (1/2/3/4/5/6/0) " << std::flush;
+                    std::cout << "Insira uma opçao valida. (1/2/3/0) " << std::flush;
                     sleep(3);
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cin.ignore(INFstream, '\n');
             }
         }
         else {
             std::cout << "Insira uma opçao valida. (1/2/3/0) " << std::flush;
             sleep(3);
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(INFstream, '\n');
         }
     } while (!requestChosen);
 }
@@ -144,13 +146,13 @@ void STCP::bestTripInterface() {
                 default:
                     std::cout <<"Insira uma opçao valida. (1/2/0)" << std::flush;
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cin.ignore(INFstream, '\n');
             }
         }
         else {
             std::cout << "Insira uma opçao valida. (1/2/0)" << std::flush;
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(INFstream, '\n');
         }
     } while (!requestChosen);
 }

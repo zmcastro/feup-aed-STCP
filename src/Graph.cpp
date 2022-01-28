@@ -6,12 +6,11 @@
 
 #include "../headers/Graph.h"
 
-Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) {
-}
+Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) { }
 
 // Add edge from source to destination with a certain weight
 void Graph::addEdge(int src, int dest, double weight) {
-    //wrong, check if graph already has stop;;; if (src<1 || src>n || dest<1 || dest>n) return;
+    if (src<1 || src>n || dest<1 || dest>n) return;
     nodes[src].adj.push_back({dest, weight});
     if (!hasDir) nodes[dest].adj.push_back({src, weight});
 }
@@ -24,7 +23,7 @@ int Graph::findNode(const std::string &code) {
     return -1;
 }
 
-void Graph::dijkstra(const int &index) {
+void Graph::dijkstraByCost(const int &index) {
     std::set<std::pair<int, int>> q;
     for (int v = 1; v <= n; v++) {
         nodes[v].pred = -1;
@@ -47,6 +46,10 @@ void Graph::dijkstra(const int &index) {
             int w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
                 q.erase({nodes[v].dist, v});
+                if (nodes[v].stop.getZone() != nodes[v].stop.getZone())
+                    nodes[v].dist = nodes[u].dist + w + 10;
+                else
+                    nodes[v].dist = nodes[u].dist + w;
                 nodes[v].dist = nodes[u].dist + w;
                 nodes[v].pred = u;
                 q.insert({nodes[v].dist, v});
@@ -78,7 +81,7 @@ void Graph :: bfs(int v) {
 
 std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     std::list<int> path;
-    dijkstra(idx1);
+    dijkstraByCost(idx1);
     if (nodes[idx2].dist == INF) return path;
     path.push_back(idx2);
     int v = idx2;
@@ -90,7 +93,7 @@ std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
 }
 
 double Graph::dijkstra_distance(const int &idx1, const int &idx2) {
-    dijkstra(idx1);
+    dijkstraByCost(idx1);
     if (nodes[idx2].dist == INF) return -1;
     return nodes[idx2].dist;
 }

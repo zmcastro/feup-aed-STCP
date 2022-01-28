@@ -1,12 +1,15 @@
 //
-// Created by mroch on 27/01/2022.
+// Created by zemar on 28/01/2022.
 //
 
 #ifndef AEDPROJ2_STCP_H
 #define AEDPROJ2_STCP_H
+
+
 class STCP {
+
 public:
-    STCP::STCP();
+    STCP();
     void Interface();
     void bestTripInterface();
 };
