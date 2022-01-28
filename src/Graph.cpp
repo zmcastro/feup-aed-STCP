@@ -16,9 +16,9 @@ void Graph::addEdge(int src, int dest, double weight) {
     if (!hasDir) nodes[dest].adj.push_back({src, weight});
 }
 
-int Graph::findNode(const int &index) {
+int Graph::findNode(const std::string &code) {
     for (int i = 0; i < nodes.size(); i++) {
-        if (nodes[i].stopIdx == index)
+        if (nodes[i].stop.getCode() == code)
             return i;
     }
     return -1;

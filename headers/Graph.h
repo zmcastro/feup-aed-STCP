@@ -15,7 +15,7 @@
 
 class Graph {
     struct Edge {
-        int dest;   // Destination node (using stop code)
+        int dest;   // Destination node
         double weight; // An integer weight
         std::string line; //
     };
@@ -25,8 +25,8 @@ class Graph {
         bool visited;
         int pred;
         double dist;
+
         Stop stop;
-        int stopIdx;
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
@@ -44,7 +44,7 @@ public:
 
     void addNode(const Stop &stop);
 
-    int findNode(const int &index);
+    int findNode(const std::string &code);
 
     //Stop getNearest(const Stop &stop);
 
