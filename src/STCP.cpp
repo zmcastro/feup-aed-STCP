@@ -9,6 +9,7 @@
 #include <sstream>
 #include <unistd.h>
 #include <fstream>
+#include <regex>
 #include "../headers/STCP.h"
 #include "../headers/Auxiliary.h"
 
@@ -71,7 +72,10 @@ STCP::STCP() {
                 std::stringstream auxLs(nStops);
 
                 for (int i = 0; i < stoi(auxLs.str()); i++) {
-                    std::getline(infilePathLine0, currentStop);
+                    std::getline(infilePathLine0, currentStop, '\r');
+                    std::stringstream auxCLs(currentStop);
+                    std::regex newlines_re("\n+");
+                    currentStop = std::regex_replace(currentStop, newlines_re, "");
 
                     if (i > 0) {
                         stopGraph.addEdge(stopMap[lastStop], stopMap[currentStop], code);
@@ -95,7 +99,10 @@ STCP::STCP() {
                 std::stringstream auxLs(nStops);
 
                 for (int i = 0; i < stoi(auxLs.str()); i++) {
-                    std::getline(infilePathLine1, currentStop );
+                    std::getline(infilePathLine1, currentStop, '\r');
+                    std::stringstream auxCLs(currentStop);
+                    std::regex newlines_re("\n+");
+                    currentStop = std::regex_replace(currentStop, newlines_re, "");
 
                     if (i > 0) {
                         stopGraph.addEdge(stopMap[lastStop], stopMap[currentStop], code);
@@ -209,7 +216,7 @@ void STCP::bestTripInterface() {
 }
 
 void STCP::testOutput() {
-    std::cout << stopGraph.findStop(0).getName();
+    std::cout << stopGraph.findStop(0).getName() << stopGraph.findStop(stopGraph.findNearest(0)).getName();
 }
 
 

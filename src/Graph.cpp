@@ -24,10 +24,22 @@ void Graph::addNode(const Stop &stop, const int &idx) {
 }
 
 Stop Graph::findStop(const int &idx) {
-    if (idx > n || idx <= 0)
+    if (idx < n || idx >= 0)
         return nodes.at(idx).stop;
     else
         throw "Stop not found!";
+}
+
+int Graph::findNearest(const int &src) {
+    double minDist = INF;
+    int nearestIdx = src;
+    for (auto e : nodes[src].adj) {
+        if (e.weight < minDist) {
+            minDist = e.weight;
+            nearestIdx = e.dest;
+        }
+    }
+    return nearestIdx;
 }
 
 void Graph::dijkstraByCost(const int &index) {

@@ -41,6 +41,8 @@ public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
+    int findNearest(const int &src);
+
     void dijkstraByCost(const int &index);
 
      /**
