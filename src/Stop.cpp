@@ -26,9 +26,11 @@ void Stop::setCoordinates(const double &longitude, const double &latitude) {
     this->latitude = latitude;
     this->longitude = longitude;
 }
+void Stop::setLine(const std::string &lineCode) { this->lineCode = lineCode; }
 
 std::string Stop::getCode() const { return code; }
 std::string Stop::getName() const { return name; }
 std::string Stop::getZone() const { return zone; }
 double Stop::getLatitude() const { return latitude; }
 double Stop::getLongitude() const { return longitude; }
+std::string Stop::getLine() const { return lineCode; }

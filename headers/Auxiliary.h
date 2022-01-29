@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <string>
 
+double haversine(double lat1, double lon1, double lat2, double lon2);
+
 /**
  * Returns True if parameter x is of type int and isolated (only integers allowed, no chars p.e.)
  * @param x input to be checked

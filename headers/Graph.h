@@ -14,12 +14,13 @@
 #include <set>
 #include <unordered_map>
 #include "Stop.h"
+#include "Auxiliary.h"
 
 class Graph {
     struct Edge {
         int dest;   // Destination node
         double weight; // An integer weight
-        std::string line; //
+        std::string line; //linecode
     };
 
     struct Node {
@@ -28,6 +29,8 @@ class Graph {
         int pred;
         double dist;
         Stop stop;
+
+        Node() { };
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
@@ -41,11 +44,11 @@ public:
     void dijkstraByCost(const int &index);
 
     // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, double weight = 1);
+    void addEdge(int src, int dest, std::string lineCode);
 
-    void addNode(const Stop &stop);
+    void addNode(const Stop &stop, const int &idx);
 
-    int findNode(const std::string &code);
+    Stop findStop(const int &idx);
 
     //Stop getNearest(const Stop &stop);
 

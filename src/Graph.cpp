@@ -9,18 +9,25 @@
 Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) { }
 
 // Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, double weight) {
-    if (src<1 || src>n || dest<1 || dest>n) return;
-    nodes[src].adj.push_back({dest, weight});
-    if (!hasDir) nodes[dest].adj.push_back({src, weight});
+void Graph::addEdge(int src, int dest, const std::string lineCode) {
+    if (src<0 || src>n || dest<0 || dest>n) return;
+
+    double weight = haversine(nodes[src].stop.getLatitude(), nodes[src].stop.getLongitude(), nodes[dest].stop.getLatitude(), nodes[dest].stop.getLongitude());
+
+    nodes[src].adj.push_back({dest, weight, lineCode});
 }
 
-int Graph::findNode(const std::string &code) {
-    for (int i = 0; i < nodes.size(); i++) {
-        if (nodes[i].stop.getCode() == code)
-            return i;
-    }
-    return -1;
+void Graph::addNode(const Stop &stop, const int &idx) {
+    Node newNode = Node();
+    newNode.stop = stop;
+    nodes.at(idx) = newNode;
+}
+
+Stop Graph::findStop(const int &idx) {
+    if (idx > n || idx <= 0)
+        return nodes.at(idx).stop;
+    else
+        throw "Stop not found!";
 }
 
 void Graph::dijkstraByCost(const int &index) {
@@ -97,4 +104,5 @@ double Graph::dijkstra_distance(const int &idx1, const int &idx2) {
     if (nodes[idx2].dist == INF) return -1;
     return nodes[idx2].dist;
 }
+
 

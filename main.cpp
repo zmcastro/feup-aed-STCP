@@ -1,6 +1,7 @@
 #include <iostream>
+#include <STCP.h>
 
 int main() {
-    std::cout << "Oi galerinha!" << std::endl;
-    return 0;
+    STCP buscomp = STCP();
+    buscomp.testOutput();
 }

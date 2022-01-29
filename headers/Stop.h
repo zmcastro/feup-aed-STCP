@@ -11,6 +11,7 @@ class Stop {
 private:
     std::string code, name, zone;
     double latitude, longitude;
+    std::string lineCode;
 
 public:
     Stop(const std::string &code, const std::string &name, const std::string &zone, const double &latitude, const double &longitude);
@@ -22,12 +23,14 @@ public:
     void setLatitude(const double &latitude);
     void setLongitude(const double &longitude);
     void setCoordinates(const double &longitude, const double &latitude);
+    void setLine(const std::string &lineCode);
 
     std::string getCode() const;
     std::string getName() const;
     std::string getZone() const;
     double getLatitude() const;
     double getLongitude() const;
+    std::string getLine() const;
 
     bool operator==(const Stop& s) {
         return this->code == s.code;
