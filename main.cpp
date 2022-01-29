@@ -1,6 +1,7 @@
-#include <iostream>
+#include "STCP.h"
 
 int main() {
-    std::cout << "Oi galerinha!" << std::endl;
+    STCP stcp1;
+    stcp1.mainInterface();
     return 0;
 }

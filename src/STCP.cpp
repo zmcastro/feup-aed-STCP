@@ -81,22 +81,22 @@ STCP::STCP() {
 }
 
 
-void STCP::Interface()
+void STCP::mainInterface()
 {
     bool requestChosen = false;
     int userR;
     do
     {
         cleanScreen();
-        std::cout << "Bem Vind@ à interface digital não-oficial da STCP. O que pretende fazer? " << '\n' << "    1.) Ver Paragens perto de mim" << '\n' << "    2.) Melhor Percurso entre 2 locais" << '\n';
-        std::cout << "    3.) Mudar de autocarro" << '\n' << " 4.) NÃO PEDIDO Ver as paragens de um autocarro " << '\n' << "    0.) Sair" << std::endl;
+        std::cout << "Bem Vind@ a interface digital nao-oficial da STCP. O que pretende fazer? " << '\n' << "    1.) Ver Paragens perto de mim" << '\n' << "    2.) Melhor Percurso entre 2 locais" << '\n';
+        std::cout << "    3.) Mudar de autocarro" << '\n' << "    4.) NAO PEDIDO Ver as paragens de um autocarro " << '\n' << "    0.) Sair" << std::endl;
         if (inpCheck(userR)) {
             switch (userR) {
                 case 1:
                     double latitude, longitude; //deviamos verificar se ficam no porto??
-                    std::cout << "Por favor, diga-nos a sua localização. \n A sua latitude:";
+                    std::cout << "Por favor, diga-nos a sua localizacao. \n A sua latitude: ";
                     std::cin >> latitude;
-                    std::cout << "\nAgora insira a sua longitude: ";
+                    std::cout << "\n Agora insira a sua longitude: ";
                     std::cin >> longitude;
                     //funçao que devolve a mais próxima
                     break;
@@ -107,16 +107,17 @@ void STCP::Interface()
                     std::cout << "TO DO";
                     break;
                 case 0:
+                    std::cout << "Obrigado pela sua preferencia! Esperamos encontra-l@ em breve novamente :)";
                     exit(0);
                 default:
-                    std::cout << "Insira uma opçao valida. (1/2/3/0) " << std::flush;
+                    std::cout << "Insira uma opcao valida. (1/2/3/0) " << std::flush;
                     sleep(3);
                     std::cin.clear();
                     std::cin.ignore(INFstream, '\n');
             }
         }
         else {
-            std::cout << "Insira uma opçao valida. (1/2/3/0) " << std::flush;
+            std::cout << "Insira uma opcao valida. (1/2/3/0) " << std::flush;
             sleep(3);
             std::cin.clear();
             std::cin.ignore(INFstream, '\n');
@@ -129,27 +130,35 @@ void STCP::bestTripInterface() {
     int userR;
     do
     {
-        std::cout << "    1.) Inserir as coordenadas dos locais." << '\n' << "    2.) Inserir as paragens dos locais" << '\n' << "    0.) Voltar ao menu" << '\n' << std::flush;
+        std::cout << "    1.) Menos Paragens" << '\n' << "    2.) Menor Distancia" << '\n'
+        <<  "    3.) Menos Mudancas de Autocarro" << '\n' <<  "    4.) Mais Economico" << '\n'
+        <<"    0.) Voltar ao menu" << '\n' << std::flush;
         if (inpCheck(userR)) {
             switch (userR) {
                 case 1:
-                    std::cout << "Por implementar. Obrigada pela preferencia.";
+                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
                     break;
                 case 2:
-                    std::cout << "Por implementar. Obrigada pela preferencia.";
+                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    break;
+                case 3:
+                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    break;
+                case 4:
+                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
                     break;
                 case 0:
-                    std::cout << "Aguarde, por favor.";
+                    std::cout << "Aguarde, por favor.\n";
                     requestChosen = true;
                     break;
                 default:
-                    std::cout <<"Insira uma opçao valida. (1/2/0)" << std::flush;
+                    std::cout <<"Insira uma opcao valida. (1/2/0)\n" << std::flush;
                     std::cin.clear();
                     std::cin.ignore(INFstream, '\n');
             }
         }
         else {
-            std::cout << "Insira uma opçao valida. (1/2/0)" << std::flush;
+            std::cout << "Insira uma opcao valida. (1/2/0)" << std::flush;
             std::cin.clear();
             std::cin.ignore(INFstream, '\n');
         }

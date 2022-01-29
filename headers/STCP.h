@@ -8,8 +8,17 @@
 class STCP {
 
 public:
+    /**
+     * Constructor of the STCP class - reads the stops and the lines and organizes them
+     */
     STCP();
-    void Interface();
+    /**
+     * Text based interface of the program to help the client finding what they are looking for
+     */
+    void mainInterface();
+    /**
+     * Text based interface to help the client find the best trip according to their preferences
+     */
     void bestTripInterface();
 };
 

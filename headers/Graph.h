@@ -40,9 +40,14 @@ public:
 
     void dijkstraByCost(const int &index);
 
-    // Add edge from source to destination with a certain weight
+    /**
+     * Add edge from source to destination with a certain weight
+     */
     void addEdge(int src, int dest, double weight = 1);
-
+    /**
+     * Add node from
+     * @param stop
+     */
     void addNode(const Stop &stop);
 
     int findNode(const std::string &code);
