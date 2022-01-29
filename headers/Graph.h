@@ -71,6 +71,8 @@ public:
     std::list<Stop> dijkstra_path(const int &index1, const int &index2, const int &dijkstraType);
 
     std::vector<Stop> findNearestStops2(const double latitude, const double longitude, const double &maxDist);
+
+    void showPath(const std::list<Stop> &stops);
 };
 
 

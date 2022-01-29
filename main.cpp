@@ -4,8 +4,7 @@
 
 int main() {
     STCP stcp1;
-    //stcp1.mainInterface();
+    stcp1.mainInterface();
 
-    stcp1.testOutput();
 
 }

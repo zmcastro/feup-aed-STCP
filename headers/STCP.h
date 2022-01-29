@@ -27,6 +27,8 @@ public:
 
     void addStop(const Stop &stop);
 
+    void showPath(const std::list<Stop> &stops);
+
     void testOutput();
     /**
      * Text based interface of the program to help the client finding what they are looking for
@@ -43,9 +45,9 @@ public:
 
     static void showStopsNear(std::vector<Stop> result);
 
-    void nearMeByStop();
+    void nearMeByStopHandler();
 
-    void nearMeByCoor();
+    void nearMeByCoorHandler();
 };
 
 #endif //AEDPROJ2_STCP_H

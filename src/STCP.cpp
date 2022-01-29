@@ -127,6 +127,7 @@ STCP::STCP() {
     infileLines.close();
 }
 
+
 void STCP::mainInterface()
 {
     bool requestChosen = false;
@@ -154,6 +155,7 @@ void STCP::mainInterface()
                     break;
                 case 0:
                     std::cout << "Obrigado pela sua preferencia! Esperamos encontra-l@ em breve novamente :)";
+                    requestChosen = true;
                     exit(0);
                 default:
                     std::cout << "Insira uma opcao valida. (1/2/3/0) " << std::flush;
@@ -170,14 +172,15 @@ void STCP::mainInterface()
         }
     } while (!requestChosen);
 }
+
+
 void STCP::showStopsNear(std::vector<Stop> result){
     for (auto & i : result)
         std::cout << "Nome: " << i.getName() << "\tCodigo: " << i.getCode() << "\tZona: " << i.getZone() << '\n';
     if (result.empty())
         std::cout << "Nao ha paragens nas redondezas.\n";
 }
-
-void STCP::nearMeByStop(){
+void STCP::nearMeByStopHandler(){
     std::string nameStop;
     double maxDistance;
     std::cout << "    Por favor, diga-nos a sua localizacao. \n"
@@ -186,8 +189,7 @@ void STCP::nearMeByStop(){
 
     showStopsNear(stopGraph.findNearestStops(stopMap[nameStop], maxDistance));
 }
-
-void STCP::nearMeByCoor(){
+void STCP::nearMeByCoorHandler(){
     double latitude, longitude, maxDistance;
     std::cout << "    Por favor, diga-nos a sua localizacao. \n"
                  "    A sua latitude: ";                    std::cin >> latitude;
@@ -208,10 +210,10 @@ void STCP::stopsNearInterface() {
             double maxDistance;
             switch (userR) {
                 case 1:
-                    nearMeByStop();
+                    nearMeByStopHandler();
                     break;
                 case 2:
-                    nearMeByCoor();
+                    nearMeByCoorHandler();
                     break;
                 case 0:
                     std::cout << "Aguarde, por favor.\n";
@@ -231,27 +233,55 @@ void STCP::stopsNearInterface() {
     } while (!requestChosen);
 }
 
+void STCP::showPath(const std::list<Stop> &stops) {
+    for (auto it = stops.begin(); it != stops.end(); it++) {
+        std::cout << it->getName() << " " << it->getCode();
+        auto auxIt = it;
+        auxIt++;
+        if(auxIt == stops.end())
+            break;
+        it++;
+        std::cout << " -> Linha " << it->getLine() << std::endl;
+        it--;
+    }
+}
 void STCP::bestTripInterface() {
     bool requestChosen = false;
     int userR;
+
+    int time;
+    std::string stop1, stop2;
+
+    std::cout << "Percurso feito de dia ou de noite? " << '\n'
+              << "    0.) Dia" << '\n' << "    1.) Noite" << std::endl;
+    std::cin >> time;
+    std::cout << "Qual é o código da paragem inicial?" << std::endl;
+    std::cin >> stop1;
+    std::cout << "Qual é o código da paragem final?" << std::endl;
+    std::cin >> stop2;
+
     do
     {
         std::cout << "    1.) Menos Paragens" << '\n' << "    2.) Menor Distancia" << '\n'
         <<  "    3.) Menos Mudancas de Autocarro" << '\n' <<  "    4.) Mais Economico" << '\n'
         <<"    0.) Voltar ao menu" << '\n' << std::flush;
+
         if (inpCheck(userR)) {
             switch (userR) {
                 case 1:
-                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    //bfs
                     break;
                 case 2:
-                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], userR));
+                    requestChosen = true;
                     break;
                 case 3:
                     std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    requestChosen = true;
                     break;
                 case 4:
-                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], userR));
+                    requestChosen = true;
                     break;
                 case 0:
                     std::cout << "Aguarde, por favor.\n";
@@ -278,17 +308,6 @@ void STCP::testOutput() {
         std::cout << a.getName() << " " << a.getCode() << std::endl;
     */
 
-    std::list<Stop> dijkstrapathTry = stopGraph.dijkstra_path(stopMap["CRTO3"], stopMap["AAL1"], 2);
-    for (auto it = dijkstrapathTry.begin(); it != dijkstrapathTry.end(); it++) {
-        std::cout << it->getName() << " " << it->getCode();
-        auto auxIt = it;
-        auxIt++;
-        if(auxIt == dijkstrapathTry.end())
-            break;
-        it++;
-        std::cout << " -> Linha " << it->getLine() << std::endl;
-        it--;
-    }
 }
 
 
