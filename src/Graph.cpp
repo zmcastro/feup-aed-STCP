@@ -55,10 +55,20 @@ int Graph::findNearest(const int &src, const std::string &line) {
 
 std::vector<Stop> Graph::findNearestStops(const int &src, const double &maxDist) {
     std::vector<Stop> res;
-    for (int i = 0; i < nodes.size(); i++) {
-        double dist = haversine(nodes[src].stop.getLatitude(), nodes[src].stop.getLongitude(), nodes[i].stop.getLatitude(), nodes[i].stop.getLongitude());
-        if ((dist < maxDist) && (nodes[i].stop.getCode() != nodes[src].stop.getCode())) {
-            res.push_back(nodes[i].stop);
+    for (auto & node : nodes) {
+        double dist = haversine(nodes[src].stop.getLatitude(), nodes[src].stop.getLongitude(), node.stop.getLatitude(), node.stop.getLongitude());
+        if ((dist < maxDist) && (node.stop.getCode() != nodes[src].stop.getCode())) {
+            res.push_back(node.stop);
+        }
+    }
+    return res;
+}
+std::vector<Stop> Graph::findNearestStops2(const double latitude, const double longitude, const double &maxDist) {
+    std::vector<Stop> res;
+    for (auto & node : nodes) {
+        double dist = haversine(latitude, longitude, node.stop.getLatitude(), node.stop.getLongitude());
+        if ((dist < maxDist) ) {
+            res.push_back(node.stop);
         }
     }
     return res;

@@ -12,6 +12,7 @@
 #include <regex>
 #include "../headers/STCP.h"
 #include "../headers/Auxiliary.h"
+#include "../headers/Graph.h"
 
 STCP::STCP() {
 
@@ -133,17 +134,17 @@ void STCP::mainInterface()
     do
     {
         cleanScreen();
-        std::cout << "Bem Vind@ a interface digital nao-oficial da STCP. O que pretende fazer? " << '\n' << "    1.) Ver Paragens perto de mim" << '\n' << "    2.) Melhor Percurso entre 2 locais" << '\n';
-        std::cout << "    3.) Mudar de autocarro" << '\n' << "    4.) NAO PEDIDO Ver as paragens de um autocarro " << '\n' << "    0.) Sair" << std::endl;
+        std::cout << "    Bem Vind@ a interface digital nao-oficial da STCP. O que pretende fazer? " << '\n' <<
+        "    1.) Ver Paragens perto de mim" << '\n' <<
+        "    2.) Melhor Percurso entre 2 locais" << '\n' <<
+        "    3.) Mudar de autocarro" << '\n' <<
+        "    4.) NAO PEDIDO Ver as paragens de um autocarro " << '\n' <<
+        "    0.) Sair" << std::endl;
+
         if (inpCheck(userR)) {
             switch (userR) {
                 case 1:
-                    double latitude, longitude; //deviamos verificar se ficam no porto??
-                    std::cout << "Por favor, diga-nos a sua localizacao. \n A sua latitude: ";
-                    std::cin >> latitude;
-                    std::cout << "\n Agora insira a sua longitude: ";
-                    std::cin >> longitude;
-                    //funçao que devolve a mais próxima
+                    stopsNearInterface();
                     break;
                 case 2:
                     bestTripInterface();
@@ -164,6 +165,66 @@ void STCP::mainInterface()
         else {
             std::cout << "Insira uma opcao valida. (1/2/3/0) " << std::flush;
             sleep(3);
+            std::cin.clear();
+            std::cin.ignore(INFstream, '\n');
+        }
+    } while (!requestChosen);
+}
+void STCP::showStopsNear(std::vector<Stop> result){
+    for (auto & i : result)
+        std::cout << "Nome: " << i.getName() << "\tCodigo: " << i.getCode() << "\tZona: " << i.getZone() << '\n';
+    if (result.empty())
+        std::cout << "Nao ha paragens nas redondezas.\n";
+}
+
+void STCP::nearMeByStop(){
+    std::string nameStop;
+    double maxDistance;
+    std::cout << "    Por favor, diga-nos a sua localizacao. \n"
+                 "    A paragem perto de si: ";             std::cin >> nameStop;
+    std::cout << "\n    A distancia maxima (km): ";        std::cin >> maxDistance;
+
+    showStopsNear(stopGraph.findNearestStops(stopMap[nameStop], maxDistance));
+}
+
+void STCP::nearMeByCoor(){
+    double latitude, longitude, maxDistance;
+    std::cout << "    Por favor, diga-nos a sua localizacao. \n"
+                 "    A sua latitude: ";                    std::cin >> latitude;
+    std::cout << "\n    Agora insira a sua longitude: ";   std::cin >> longitude;
+    std::cout << "\n    A distancia maxima (km): ";        std::cin >> maxDistance;
+    showStopsNear(stopGraph.findNearestStops2(latitude,longitude, maxDistance));
+}
+void STCP::stopsNearInterface() {
+    bool requestChosen = false;
+    int userR;
+    do
+    {
+        std::cout << "    Prefere inserir: \n"
+                     "    1.) A paragem na qual se encontra \n"
+                     "    2.) As suas coordenadas \n"
+                     "    0.) Voltar ao menu\n" << std::flush;
+        if (inpCheck(userR)) {
+            double maxDistance;
+            switch (userR) {
+                case 1:
+                    nearMeByStop();
+                    break;
+                case 2:
+                    nearMeByCoor();
+                    break;
+                case 0:
+                    std::cout << "Aguarde, por favor.\n";
+                    requestChosen = true;
+                    break;
+                default:
+                    std::cout <<"Insira uma opcao valida. (1/2/0)\n" << std::flush;
+                    std::cin.clear();
+                    std::cin.ignore(INFstream, '\n');
+            }
+        }
+        else {
+            std::cout << "Insira uma opcao valida. (1/2/0)" << std::flush;
             std::cin.clear();
             std::cin.ignore(INFstream, '\n');
         }
