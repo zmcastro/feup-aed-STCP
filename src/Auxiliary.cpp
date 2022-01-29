@@ -2,26 +2,20 @@
 // Created by zemar on 28/01/2022.
 //
 
-
-#define INFstream (std::numeric_limits<std::streamsize>::max()/2)
-
 #include <iostream>
 #include <limits>
 
-using namespace::std;
+#include "../headers/Auxiliary.h"
 
-void cleanScreen()
-{
+void cleanScreen() {
     std::cout << std::string(10, '\n');
 }
 
-bool inpCheck(int& x)
-{
+bool inpCheck(int& x) {
     int n;
-
     if (std::cin >> n && std::cin.peek() == '\n') {
         x = n;
-        std::cin.ignore(INFstream, '\n');
+        std::cin.ignore(10000, '\n');
         return true;
     }
 
@@ -29,8 +23,8 @@ bool inpCheck(int& x)
         exit(0);
     }
     else {
-        std::cin.ignore(INFstream, '\n');
-        cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cin.clear();
         return false;
     }
 }

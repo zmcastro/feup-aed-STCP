@@ -3,4 +3,6 @@ project(aedproj2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(aedproj2 headers/Graph.h headers/STCP.h headers/Stop.h src/main.cpp src/Graph.cpp src/Stop.cpp src/STCP.cpp src/Auxiliary.cpp)
+add_executable(aedproj2 main.cpp src/Graph.cpp src/Stop.cpp src/STCP.cpp src/Auxiliary.cpp)
+
+include_directories(aedproj2 headers/)

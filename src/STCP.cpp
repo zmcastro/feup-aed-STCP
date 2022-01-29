@@ -7,11 +7,10 @@
 #include <map>
 #include <vector>
 #include <limits>
-#include <fstream>
 #include <sstream>
 #include <unistd.h>
 #include "../headers/STCP.h"
-#include "Auxiliary.cpp"
+#include "../headers/Auxiliary.h"
 
 STCP::STCP() {
 /*

@@ -5,7 +5,6 @@
 #ifndef AEDPROJ2_STCP_H
 #define AEDPROJ2_STCP_H
 
-
 class STCP {
 
 public:
