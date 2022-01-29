@@ -79,8 +79,8 @@ std::vector<Stop> Graph::findNearestLineStops(const int &src, const double &maxD
 }
 
 void Graph::dijkstraByCost(const int &index) {
-    std::set<std::pair<int, int>> q;
-    for (int v = 1; v <= n; v++) {
+    std::set<std::pair<double, int>> q;
+    for (int v = 0; v < n; v++) {
         nodes[v].pred = -1;
         nodes[v].dist = INF;
         q.insert({INF, v});
@@ -98,13 +98,9 @@ void Graph::dijkstraByCost(const int &index) {
         nodes[u].visited = true;
         for (auto e: nodes[u].adj) {
             int v = e.dest;
-            int w = e.weight;
+            double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
                 q.erase({nodes[v].dist, v});
-                if (nodes[v].stop.getZone() != nodes[v].stop.getZone())
-                    nodes[v].dist = nodes[u].dist + w + 10;
-                else
-                    nodes[v].dist = nodes[u].dist + w;
                 nodes[v].dist = nodes[u].dist + w;
                 nodes[v].pred = u;
                 q.insert({nodes[v].dist, v});

@@ -21,7 +21,7 @@ STCP::STCP() {
     if (infileStops.is_open()) {
         std::string line;
 
-        std::getline(infileStops, auxStr);//skip 1st line
+        std::getline(infileStops, auxStr); //skip 1st line
         while (std::getline(infileStops, line)) {
 
             std::stringstream ls(line);
@@ -38,9 +38,9 @@ STCP::STCP() {
             longitude = std::stod(strLong);
 
             Stop newStop = Stop(code, name, zone, latitude, longitude);
-            int newIdx = stopMap.size();
-            stopMap.insert(std::pair<std::string, int>(code, newIdx));
-            stopGraph.addNode(newStop, newIdx);
+            int idx = stopMap.size();
+            stopMap.insert(std::pair<std::string, int>(code, idx));
+            stopGraph.addNode(newStop, idx);
         }
     } else {
         throw "NoStopsFound!";
