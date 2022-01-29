@@ -218,8 +218,16 @@ void STCP::testOutput() {
     */
 
     std::list<Stop> dijkstrapathTry = stopGraph.dijkstra_path(stopMap["CRTO3"], stopMap["AAL1"]);
-    for (auto it = dijkstrapathTry.begin(); it != dijkstrapathTry.end(); it++)
-        std::cout << it->getName() << " " << it->getCode() << std::endl;
+    for (auto it = dijkstrapathTry.begin(); it != dijkstrapathTry.end(); it++) {
+        std::cout << it->getName() << " " << it->getCode();
+        auto auxIt = it;
+        auxIt++;
+        if(auxIt == dijkstrapathTry.end())
+            break;
+        it++;
+        std::cout << " -> Linha " << it->getLine() << std::endl;
+        it--;
+    }
 }
 
 

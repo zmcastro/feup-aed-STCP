@@ -15,8 +15,8 @@ class STCP {
 private:
     Graph stopGraph{2487, true};
 
-    std::vector<Stop> stops;
     std::unordered_map<std::string, int> stopMap;
+    std::unordered_map<std::string, int> stopLineMap;
     std::vector<Line> lines;
 
 public:

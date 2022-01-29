@@ -29,6 +29,7 @@ class Graph {
         bool visited;
         int pred;
         double dist;
+
         Stop stop;
 
         Node() { };
@@ -42,7 +43,8 @@ public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
-    void dijkstraByCost(const int &index);
+    void dijkstraByDist(const int &index, const bool &time);
+    void dijkstraByCost(const int &index, const bool &time);
 
      /**
      * Add edge from source to destination with a certain weight

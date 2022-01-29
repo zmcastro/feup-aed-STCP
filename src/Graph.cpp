@@ -78,7 +78,7 @@ std::vector<Stop> Graph::findNearestLineStops(const int &src, const double &maxD
     return res;
 }
 
-void Graph::dijkstraByCost(const int &index) {
+void Graph::dijkstraByDist(const int &index, const bool &time) {
     std::set<std::pair<double, int>> q;
     for (int v = 0; v < n; v++) {
         nodes[v].pred = -1;
@@ -94,13 +94,48 @@ void Graph::dijkstraByCost(const int &index) {
     while (q.size() > 0) {
         int u = q.begin()->second;
         q.erase(q.begin());
-        // cout << "Node " << u << " with dist = " << nodes[u].dist << endl;
         nodes[u].visited = true;
-        for (auto e: nodes[u].adj) {
+        for (auto e: nodes[u].adj ) {
+            if (time == 0 && e.line.back() == 'M')
+                continue;
             int v = e.dest;
             double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
                 q.erase({nodes[v].dist, v});
+                nodes[v].stop.setLine(e.line);
+                nodes[v].dist = nodes[u].dist + w;
+                nodes[v].pred = u;
+                q.insert({nodes[v].dist, v});
+            }
+        }
+    }
+}
+
+void Graph::dijkstraByCost(const int &index, const bool &time) {
+    std::set<std::pair<double, int>> q;
+    for (int v = 0; v < n; v++) {
+        nodes[v].pred = -1;
+        nodes[v].dist = INF;
+        q.insert({INF, v});
+        nodes[v].visited = false;
+    }
+
+    nodes[index].dist = 0;
+    q.erase({INF, index});
+    q.insert({0, index});
+    nodes[index].pred = index;
+    while (q.size() > 0) {
+        int u = q.begin()->second;
+        q.erase(q.begin());
+        nodes[u].visited = true;
+        for (auto e: nodes[u].adj ) {
+            if (time == 0 && e.line.back() == 'M')
+                continue;
+            int v = e.dest;
+            double w = e.weight;
+            if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
+                q.erase({nodes[v].dist, v});
+                nodes[v].stop.setLine(e.line);
                 nodes[v].dist = nodes[u].dist + w;
                 nodes[v].pred = u;
                 q.insert({nodes[v].dist, v});
@@ -132,7 +167,7 @@ void Graph :: bfs(int v) {
 
 std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     std::list<Stop> path;
-    dijkstraByCost(idx1);
+    dijkstraByDist(idx1, 0);
     if (nodes[idx2].dist == INF) return path;
     path.push_back(nodes.at(idx2).stop);
     int v = idx2;
@@ -144,7 +179,7 @@ std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2) {
 }
 
 double Graph::dijkstra_distance(const int &idx1, const int &idx2) {
-    dijkstraByCost(idx1);
+    dijkstraByDist(idx1, 0);
     if (nodes[idx2].dist == INF) return -1;
     return nodes[idx2].dist;
 }
