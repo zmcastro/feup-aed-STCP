@@ -28,15 +28,24 @@ public:
     void addStop(const Stop &stop);
 
     void testOutput();
-    void Interface();
     /**
      * Text based interface of the program to help the client finding what they are looking for
      */
     void mainInterface();
     /**
+     * Text based interface of the program to help the client find stops near them
+     */
+     void stopsNearInterface();
+    /**
      * Text based interface to help the client find the best trip according to their preferences
      */
     void bestTripInterface();
+
+    static void showStopsNear(std::vector<Stop> result);
+
+    void nearMeByStop();
+
+    void nearMeByCoor();
 };
 
 #endif //AEDPROJ2_STCP_H
