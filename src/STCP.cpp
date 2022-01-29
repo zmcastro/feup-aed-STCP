@@ -71,7 +71,7 @@ STCP::STCP() {
                 std::getline(infilePathLine0, nStops); //get nstops
                 std::stringstream auxLs(nStops);
 
-                for (int i = 0; i < stoi(auxLs.str()); i++) {
+                for (int i = 0; i < stoi(auxLs.str()); ++i) {
                     std::getline(infilePathLine0, currentStop, '\r');
                     std::stringstream auxCLs(currentStop);
                     std::regex newlines_re("\n+");
@@ -124,11 +124,6 @@ STCP::STCP() {
         throw "NoLinesFound!";
     }
     infileLines.close();
-}
-
-void STCP::addStop(const Stop &stop) {
-    stopMap[stop.getCode()] = stops.size() - 1;
-    this->stops.push_back(stop);
 }
 
 void STCP::mainInterface()
@@ -216,7 +211,15 @@ void STCP::bestTripInterface() {
 }
 
 void STCP::testOutput() {
-    std::cout << stopGraph.findStop(0).getName() << stopGraph.findStop(stopGraph.findNearest(0)).getName();
+    /*std::cout << stopGraph.findStop(0).getName() << stopGraph.findStop(stopGraph.findNearest(0)).getName();
+    std::vector<Stop> res = stopGraph.findNearestStops(0, 2);
+    for (auto a : res)
+        std::cout << a.getName() << " " << a.getCode() << std::endl;
+    */
+
+    std::list<Stop> dijkstrapathTry = stopGraph.dijkstra_path(stopMap["CRTO3"], stopMap["AAL1"]);
+    for (auto it = dijkstrapathTry.begin(); it != dijkstrapathTry.end(); it++)
+        std::cout << it->getName() << " " << it->getCode() << std::endl;
 }
 
 

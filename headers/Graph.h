@@ -13,6 +13,7 @@
 #include <limits>
 #include <set>
 #include <unordered_map>
+#include<algorithm>
 #include "Stop.h"
 #include "Auxiliary.h"
 
@@ -41,8 +42,6 @@ public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
-    int findNearest(const int &src);
-
     void dijkstraByCost(const int &index);
 
      /**
@@ -56,15 +55,18 @@ public:
      */
     void addNode(const Stop &stop, const int &idx);
 
-    Stop findStop(const int &idx);
+    Stop getStop(const int &idx);
 
-    //Stop getNearest(const Stop &stop);
+    int findNearest(const int &src);
+    int findNearest(const int &src, const std::string &line);
+    std::vector<Stop> findNearestStops(const int &src, const double &maxDist);
+    std::vector<Stop> findNearestLineStops(const int &src, const double &maxDist);
 
     void bfs(int v);
 
     // ----- Functions to implement in this class -----
     double dijkstra_distance(const int &index1, const int &index2);
-    std::list<int> dijkstra_path(const int &index1, const int &index2);
+    std::list<Stop> dijkstra_path(const int &index1, const int &index2);
 };
 
 

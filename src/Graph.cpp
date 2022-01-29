@@ -23,7 +23,7 @@ void Graph::addNode(const Stop &stop, const int &idx) {
     nodes.at(idx) = newNode;
 }
 
-Stop Graph::findStop(const int &idx) {
+Stop Graph::getStop(const int &idx) {
     if (idx < n || idx >= 0)
         return nodes.at(idx).stop;
     else
@@ -40,6 +40,42 @@ int Graph::findNearest(const int &src) {
         }
     }
     return nearestIdx;
+}
+int Graph::findNearest(const int &src, const std::string &line) {
+    double minDist = INF;
+    int nearestIdx = src;
+    for (auto e : nodes[src].adj) {
+        if (e.weight < minDist && e.line == line) {
+            minDist = e.weight;
+            nearestIdx = e.dest;
+        }
+    }
+    return nearestIdx;
+}
+
+std::vector<Stop> Graph::findNearestStops(const int &src, const double &maxDist) {
+    std::vector<Stop> res;
+    for (int i = 0; i < nodes.size(); i++) {
+        double dist = haversine(nodes[src].stop.getLatitude(), nodes[src].stop.getLongitude(), nodes[i].stop.getLatitude(), nodes[i].stop.getLongitude());
+        if ((dist < maxDist) && (nodes[i].stop.getCode() != nodes[src].stop.getCode())) {
+            res.push_back(nodes[i].stop);
+        }
+    }
+    return res;
+}
+
+std::vector<Stop> Graph::findNearestLineStops(const int &src, const double &maxDist) {
+    std::vector<int> aux;
+    std::vector<Stop> res;
+    for (auto e : nodes[src].adj) {
+        if ((e.weight < maxDist) && (std::find(aux.begin(), aux.end(), e.dest) == aux.end())) {
+            aux.push_back(e.dest);
+            res.push_back(getStop(e.dest));
+        }
+        if (res.size() == 5)
+            break;
+    }
+    return res;
 }
 
 void Graph::dijkstraByCost(const int &index) {
@@ -98,15 +134,15 @@ void Graph :: bfs(int v) {
     }
 }
 
-std::list<int> Graph::dijkstra_path(const int &idx1, const int &idx2) {
-    std::list<int> path;
+std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2) {
+    std::list<Stop> path;
     dijkstraByCost(idx1);
     if (nodes[idx2].dist == INF) return path;
-    path.push_back(idx2);
+    path.push_back(nodes.at(idx2).stop);
     int v = idx2;
     while (v != idx1) {
         v = nodes[v].pred;
-        path.push_front(v);
+        path.push_front(nodes.at(v).stop);
     }
     return path;
 }
