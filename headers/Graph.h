@@ -43,9 +43,15 @@ public:
 
     void dijkstraByCost(const int &index);
 
-    // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, std::string lineCode);
+     /**
+     * Add edge from source to destination with a certain weight
+     */
+     void addEdge(int src, int dest, std::string lineCode);
 
+    /**
+     * Add node from
+     * @param stop
+     */
     void addNode(const Stop &stop, const int &idx);
 
     Stop findStop(const int &idx);
