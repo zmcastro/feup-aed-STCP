@@ -278,7 +278,7 @@ void STCP::testOutput() {
         std::cout << a.getName() << " " << a.getCode() << std::endl;
     */
 
-    std::list<Stop> dijkstrapathTry = stopGraph.dijkstra_path(stopMap["CRTO3"], stopMap["AAL1"]);
+    std::list<Stop> dijkstrapathTry = stopGraph.dijkstra_path(stopMap["CRTO3"], stopMap["AAL1"], 2);
     for (auto it = dijkstrapathTry.begin(); it != dijkstrapathTry.end(); it++) {
         std::cout << it->getName() << " " << it->getCode();
         auto auxIt = it;

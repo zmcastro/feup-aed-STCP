@@ -88,7 +88,8 @@ std::vector<Stop> Graph::findNearestLineStops(const int &src, const double &maxD
     return res;
 }
 
-void Graph::dijkstraByDist(const int &index, const bool &time) {
+void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if night
+{
     std::set<std::pair<double, int>> q;
     for (int v = 0; v < n; v++) {
         nodes[v].pred = -1;
@@ -121,7 +122,8 @@ void Graph::dijkstraByDist(const int &index, const bool &time) {
     }
 }
 
-void Graph::dijkstraByCost(const int &index, const bool &time) {
+void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if night
+{
     std::set<std::pair<double, int>> q;
     for (int v = 0; v < n; v++) {
         nodes[v].pred = -1;
@@ -146,7 +148,7 @@ void Graph::dijkstraByCost(const int &index, const bool &time) {
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
                 q.erase({nodes[v].dist, v});
                 nodes[v].stop.setLine(e.line);
-                nodes[v].dist = nodes[u].dist + w;
+                nodes[v].dist = nodes[u].dist + w + 10*(nodes[v].stop.getZone() != nodes[u].stop.getZone());
                 nodes[v].pred = u;
                 q.insert({nodes[v].dist, v});
             }
@@ -154,7 +156,7 @@ void Graph::dijkstraByCost(const int &index, const bool &time) {
     }
 }
 
-void Graph :: bfs(int v) {
+void Graph::bfs(int v) {
 // initialize all nodes as unvisited
     for (int v=1; v<=n; v++) nodes[v].visited = false;
     std::queue<int> q; // queue of unvisited nodes
@@ -175,9 +177,23 @@ void Graph :: bfs(int v) {
     }
 }
 
-std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2) {
+std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int &dijkstraType) {
+    switch(dijkstraType) {
+        case 2:
+            dijkstraByDist(idx1, 0);
+            break;
+        case 3:
+            //dijkstraByLine;
+            break;
+        case 4:
+            dijkstraByCost(idx1, 0);
+            break;
+        default:
+            std::cout << "How did you get past input checking?" << std::endl;
+            exit(1);
+    }
     std::list<Stop> path;
-    dijkstraByDist(idx1, 0);
+
     if (nodes[idx2].dist == INF) return path;
     path.push_back(nodes.at(idx2).stop);
     int v = idx2;
@@ -188,7 +204,22 @@ std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2) {
     return path;
 }
 
-double Graph::dijkstra_distance(const int &idx1, const int &idx2) {
+double Graph::dijkstra_distance(const int &idx1, const int &idx2, const int &dijkstraType) {
+    switch(dijkstraType) {
+        case 2:
+            dijkstraByDist(idx1, 0);
+            break;
+        case 3:
+            //dijkstraByLine;
+            break;
+        case 4:
+            dijkstraByCost(idx1, 0);
+            break;
+        default:
+            std::cout << "How did you get past input checking?" << std::endl;
+            exit(1);
+    }
+
     dijkstraByDist(idx1, 0);
     if (nodes[idx2].dist == INF) return -1;
     return nodes[idx2].dist;

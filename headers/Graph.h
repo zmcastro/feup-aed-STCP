@@ -67,8 +67,8 @@ public:
     void bfs(int v);
 
     // ----- Functions to implement in this class -----
-    double dijkstra_distance(const int &index1, const int &index2);
-    std::list<Stop> dijkstra_path(const int &index1, const int &index2);
+    double dijkstra_distance(const int &index1, const int &index2, const int &dijkstraType);
+    std::list<Stop> dijkstra_path(const int &index1, const int &index2, const int &dijkstraType);
 
     std::vector<Stop> findNearestStops2(const double latitude, const double longitude, const double &maxDist);
 };
