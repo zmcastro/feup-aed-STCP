@@ -122,6 +122,40 @@ void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if
     }
 }
 
+void Graph::dijkstraByLine(const int &index, const bool &time) // 0 if day, 1 if night
+{
+    std::set<std::pair<double, int>> q;
+    for (int v = 0; v < n; v++) {
+        nodes[v].pred = -1;
+        nodes[v].dist = INF;
+        q.insert({INF, v});
+        nodes[v].visited = false;
+    }
+
+    nodes[index].dist = 0;
+    q.erase({INF, index});
+    q.insert({0, index});
+    nodes[index].pred = index;
+    while (q.size() > 0) {
+        int u = q.begin()->second;
+        q.erase(q.begin());
+        nodes[u].visited = true;
+        for (auto e: nodes[u].adj ) {
+            if (time == 0 && e.line.back() == 'M')
+                continue;
+            int v = e.dest;
+            double w = e.weight;
+            if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
+                q.erase({nodes[v].dist, v});
+                nodes[v].stop.setLine(e.line);
+                nodes[v].dist = nodes[u].dist + w + 10*(nodes[u].stop.getLine() != nodes[v].stop.getLine());
+                nodes[v].pred = u;
+                q.insert({nodes[v].dist, v});
+            }
+        }
+    }
+}
+
 void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if night
 {
     std::set<std::pair<double, int>> q;
@@ -155,6 +189,7 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
         }
     }
 }
+
 
 void Graph::bfs(const int &index, const bool &time) {
     // initialize all nodes as unvisited
@@ -203,7 +238,7 @@ std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int
             dijkstraByDist(idx1, (time == 1));
             break;
         case 3:
-            //dijkstraByLine;
+            dijkstraByLine(idx1, (time == 1));
             break;
         case 4:
             dijkstraByCost(idx1, (time == 1));
@@ -230,7 +265,7 @@ double Graph::dijkstra_distance(const int &idx1, const int &idx2, const int &dij
             dijkstraByDist(idx1, 0);
             break;
         case 3:
-            //dijkstraByLine;
+            dijkstraByLine(idx1, 0);
             break;
         case 4:
             dijkstraByCost(idx1, 0);

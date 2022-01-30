@@ -11,8 +11,6 @@
 #include <fstream>
 #include <regex>
 #include "../headers/STCP.h"
-#include "../headers/Auxiliary.h"
-#include "../headers/Graph.h"
 
 STCP::STCP() {
 
@@ -277,7 +275,7 @@ void STCP::bestTripInterface() {
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
                     break;
                 case 3:
-                    std::cout << "Por implementar. Obrigada pela preferencia.\n";
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
                     break;
                 case 4:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));

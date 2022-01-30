@@ -45,6 +45,7 @@ public:
 
     void bfs(const int &index,  const bool &time);
     void dijkstraByDist(const int &index, const bool &time);
+    void dijkstraByLine(const int &index, const bool &time);
     void dijkstraByCost(const int &index, const bool &time);
 
      /**
