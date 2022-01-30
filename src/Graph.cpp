@@ -95,7 +95,7 @@ void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
-            if (time == 1 && e.line.back() != 'M')
+            else if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -131,7 +131,7 @@ void Graph::dijkstraByLine(const int &index, const bool &time, const std::string
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
-            if (time == 1 && e.line.back() != 'M')
+            else if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -167,7 +167,7 @@ void Graph::dijkstraByLessLines(const int &index, const bool &time) // 0 if day,
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
-            if (time == 1 && e.line.back() != 'M')
+            else if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -203,7 +203,7 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
-            if (time == 1 && e.line.back() != 'M')
+            else if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -218,7 +218,6 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
     }
 }
 
-
 void Graph::bfs(const int &index, const bool &time) {
     // initialize all nodes as unvisited
     for (int i=1; i<=n; i++)
@@ -232,7 +231,7 @@ void Graph::bfs(const int &index, const bool &time) {
         for (auto e : nodes[u].adj) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
-            if (time == 1 && e.line.back() != 'M')
+            else if (time == 1 && e.line.back() != 'M')
                 continue;
             int w = e.dest;
             if (!nodes[w].visited) { // new node!

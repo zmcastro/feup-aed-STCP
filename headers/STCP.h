@@ -27,11 +27,6 @@ public:
      */
     void showPath(const std::list<Stop> &stops);
     /**
-     * Shows the distance travelled in the calculated trip
-     * @param idx The index of the last stop
-     */
-    void showDistance(const int &idx);
-    /**
      * Text based interface of the program to help the client finding what they are looking for
      */
     void mainInterface();

@@ -229,9 +229,6 @@ void STCP::stopsNearInterface() {
     } while (!requestChosen);
 }
 
-void STCP::showDistance(const int &idx) {
-    std::cout << "A distância percorrida neste percurso foi " << stopGraph.dijkstra_distance(idx) << " !" << std::endl;
-}
 void STCP::showPath(const std::list<Stop> &stops) {
     for (auto it = stops.begin(); it != stops.end(); it++) {
         std::cout << it->getName() << " " << it->getCode();
@@ -272,23 +269,18 @@ void STCP::bestTripInterface() {
             switch (userR) {
                 case 1:
                     showPath(stopGraph.bfs_path(stopMap[stop1], stopMap[stop2], time));
-                    showDistance(stopMap[stop2]);
                     break;
                 case 2:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
-                    showDistance(stopMap[stop2]);
                     break;
                 case 3:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
-                    showDistance(stopMap[stop2]);
                     break;
                 case 4:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
-                    showDistance(stopMap[stop2]);
                     break;
                 case 5:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
-                    showDistance(stopMap[stop2]);
                     break;
                 case 0:
                     std::cout << "Aguarde, por favor.\n";
