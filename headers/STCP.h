@@ -9,14 +9,12 @@
 #include <unordered_map>
 #include "Stop.h"
 #include "Graph.h"
-#include "Line.h"
 
 class STCP {
 private:
     Graph stopGraph{2487, true};
 
     std::unordered_map<std::string, int> stopMap;
-    std::vector<Line> lines;
 
 public:
     /**

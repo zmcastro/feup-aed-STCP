@@ -116,8 +116,6 @@ STCP::STCP() {
 
             infilePathLine1.close();
 
-            Line newLine = Line(code, name, linePath0, linePath1, code.back() != 'M');
-            lines.push_back(newLine);
         }
     } else {
         throw "NoLinesFound!";
