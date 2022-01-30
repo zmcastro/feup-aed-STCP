@@ -265,8 +265,8 @@ void STCP::bestTripInterface() {
     do
     {
         std::cout << "    1.) Menos Paragens" << '\n' << "    2.) Menor Distancia" << '\n'
-        <<  "    3.) Menos Mudancas de Autocarro" << '\n' <<  "    4.) Mais Economico" << '\n'
-        <<"    0.) Voltar ao menu" << '\n' << std::flush;
+        <<  "    3.) Menos mudancas de Autocarro (Linha)" << '\n' <<  "    4.) Mais Economico" << '\n'
+        << "    5.) Por maior uso de linha específica" << '\n' << "    0.) Voltar ao menu" << '\n' << std::flush;
 
         if (inpCheck(userR)) {
             switch (userR) {
@@ -283,6 +283,10 @@ void STCP::bestTripInterface() {
                     showDistance(stopMap[stop2]);
                     break;
                 case 4:
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
+                    showDistance(stopMap[stop2]);
+                    break;
+                case 5:
                     showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
                     showDistance(stopMap[stop2]);
                     break;

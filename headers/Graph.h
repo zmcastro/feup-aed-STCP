@@ -59,11 +59,18 @@ public:
      */
     void dijkstraByDist(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
     /**
+    * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of usage of lines not equal to the desired one
+    * @param index The index of the stop provided
+    * @param time Night or day
+     * @param lineCode The string code of the desired line
+    */
+    void dijkstraByLine(const int &index, const bool &time, const std::string &lineCode);
+    /**
      * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByLine(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
+    void dijkstraByLessLines(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
     /**
      * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other
      * @param index The index of the stop provided

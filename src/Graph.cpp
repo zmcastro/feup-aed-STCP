@@ -108,7 +108,41 @@ void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if
     }
 }
 
-void Graph::dijkstraByLine(const int &index, const bool &time) // 0 if day, 1 if night
+void Graph::dijkstraByLine(const int &index, const bool &time, const std::string &lineCode) // 0 if day, 1 if night
+{
+    std::set<std::pair<double, int>> q;
+    for (int v = 0; v < n; v++) {
+        nodes[v].pred = -1;
+        nodes[v].dist = INF;
+        q.insert({INF, v});
+        nodes[v].visited = false;
+    }
+
+    nodes[index].dist = 0;
+    q.erase({INF, index});
+    q.insert({0, index});
+    nodes[index].pred = index;
+    while (q.size() > 0) {
+        int u = q.begin()->second;
+        q.erase(q.begin());
+        nodes[u].visited = true;
+        for (auto e: nodes[u].adj ) {
+            if (time == 0 && e.line.back() == 'M')
+                continue;
+            int v = e.dest;
+            double w = e.weight;
+            if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
+                q.erase({nodes[v].dist, v});
+                nodes[v].stop.setLine(e.line);
+                nodes[v].dist = nodes[u].dist + w + 10*(nodes[u].stop.getLine() != lineCode);
+                nodes[v].pred = u;
+                q.insert({nodes[v].dist, v});
+            }
+        }
+    }
+}
+
+void Graph::dijkstraByLessLines(const int &index, const bool &time) // 0 if day, 1 if night
 {
     std::set<std::pair<double, int>> q;
     for (int v = 0; v < n; v++) {
@@ -219,15 +253,22 @@ std::list<Stop> Graph::bfs_path(const int &idx1, const int &idx2, const int &tim
 }
 
 std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int &time, const int &dijkstraType) {
+    std::string lineCode;
+
     switch(dijkstraType) {
         case 2:
             dijkstraByDist(idx1, (time == 1));
             break;
         case 3:
-            dijkstraByLine(idx1, (time == 1));
+            dijkstraByLessLines(idx1, (time == 1));
             break;
         case 4:
             dijkstraByCost(idx1, (time == 1));
+            break;
+        case 5:
+            std::cout << "Qual é o código da linha pretendida?" << std::endl;
+            std::cin >> lineCode;
+            dijkstraByLine(idx1, (time == 1), lineCode);
             break;
         default:
             std::cout << "How did you get past input checking?" << std::endl;
