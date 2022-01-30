@@ -134,8 +134,6 @@ void STCP::mainInterface()
         std::cout << "    Bem Vind@ a interface digital nao-oficial da STCP. O que pretende fazer? " << '\n' <<
         "    1.) Ver Paragens perto de mim" << '\n' <<
         "    2.) Melhor Percurso entre 2 locais" << '\n' <<
-        "    3.) Mudar de autocarro" << '\n' <<
-        "    4.) NAO PEDIDO Ver as paragens de um autocarro " << '\n' <<
         "    0.) Sair" << std::endl;
 
         if (inpCheck(userR)) {
@@ -146,12 +144,8 @@ void STCP::mainInterface()
                 case 2:
                     bestTripInterface();
                     break;
-                case 3:
-                    std::cout << "TO DO";
-                    break;
                 case 0:
                     std::cout << "Obrigado pela sua preferencia! Esperamos encontra-l@ em breve novamente :)";
-                    requestChosen = true;
                     exit(0);
                 default:
                     std::cout << "Insira uma opcao valida. (1/2/3/0) " << std::flush;
