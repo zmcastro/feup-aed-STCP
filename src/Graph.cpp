@@ -95,6 +95,8 @@ void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
+            if (time == 1 && e.line.back() != 'M')
+                continue;
             int v = e.dest;
             double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
@@ -128,6 +130,8 @@ void Graph::dijkstraByLine(const int &index, const bool &time, const std::string
         nodes[u].visited = true;
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
+                continue;
+            if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -163,6 +167,8 @@ void Graph::dijkstraByLessLines(const int &index, const bool &time) // 0 if day,
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
+            if (time == 1 && e.line.back() != 'M')
+                continue;
             int v = e.dest;
             double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
@@ -196,6 +202,8 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
         nodes[u].visited = true;
         for (auto e: nodes[u].adj ) {
             if (time == 0 && e.line.back() == 'M')
+                continue;
+            if (time == 1 && e.line.back() != 'M')
                 continue;
             int v = e.dest;
             double w = e.weight;

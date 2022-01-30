@@ -64,7 +64,7 @@ public:
     * @param time Night or day
      * @param lineCode The string code of the desired line
     */
-    void dijkstraByLine(const int &index, const bool &time, const std::string &lineCode);
+    void dijkstraByLine(const int &index, const bool &time, const std::string &lineCode); // time complexity: O(|E|*log(|V|))
     /**
      * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
      * @param index The index of the stop provided
