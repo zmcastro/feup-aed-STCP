@@ -24,7 +24,7 @@ void Graph::addNode(const Stop &stop, const int &idx) {
 }
 
 Stop Graph::getStop(const int &idx) {
-    if (idx < n || idx >= 0)
+    if (idx < n && idx >= 0)
         return nodes.at(idx).stop;
     else
         throw "Stop not found!";
@@ -70,20 +70,6 @@ std::vector<Stop> Graph::findNearestStops2(const double latitude, const double l
         if ((dist < maxDist) ) {
             res.push_back(node.stop);
         }
-    }
-    return res;
-}
-
-std::vector<Stop> Graph::findNearestLineStops(const int &src, const double &maxDist) {
-    std::vector<int> aux;
-    std::vector<Stop> res;
-    for (auto e : nodes[src].adj) {
-        if ((e.weight < maxDist) && (std::find(aux.begin(), aux.end(), e.dest) == aux.end())) {
-            aux.push_back(e.dest);
-            res.push_back(getStop(e.dest));
-        }
-        if (res.size() == 5)
-            break;
     }
     return res;
 }

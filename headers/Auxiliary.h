@@ -8,7 +8,14 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-
+/**
+ * Returns the distance in km of 2 places given the coordinates of those 2 places
+ * @param lat1 Latitude of the 1st place
+ * @param lon1 Longitude of the 1st place
+ * @param lat2 Latitude of the 2nd place
+ * @param lon2 Longitude of the 2nd place
+ * @return
+ */
 double haversine(double lat1, double lon1, double lat2, double lon2);
 
 /**

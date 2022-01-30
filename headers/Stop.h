@@ -55,10 +55,11 @@ public:
      * @param latitude Latitude of the place where the stop is located
      */
     void setCoordinates(const double &longitude, const double &latitude);
-
+    /**
+     * Sets the line of the stop
+     * @param lineCode Code of the line of the stop
+     */
     void setLine(const std::string &lineCode);
-
-
     /**
      * Gets the code of the stop
      * @return Code of the stop
@@ -84,7 +85,10 @@ public:
      * @return Longitude of the stop
      */
     double getLongitude() const;
-
+    /**
+     * Gets the code of the line of the stop
+     * @return Code of the line of the stop
+     */
     std::string getLine() const;
 
     /**
