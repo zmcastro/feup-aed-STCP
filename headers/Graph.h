@@ -43,6 +43,7 @@ public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(int nodes, bool dir = false);
 
+    void bfs(const int &index,  const bool &time);
     void dijkstraByDist(const int &index, const bool &time);
     void dijkstraByCost(const int &index, const bool &time);
 
@@ -64,11 +65,9 @@ public:
     std::vector<Stop> findNearestStops(const int &src, const double &maxDist);
     std::vector<Stop> findNearestLineStops(const int &src, const double &maxDist);
 
-    void bfs(int v);
-
-    // ----- Functions to implement in this class -----
+    std::list<Stop> bfs_path(const int &idx1, const int &idx2, const int &time);
     double dijkstra_distance(const int &index1, const int &index2, const int &dijkstraType);
-    std::list<Stop> dijkstra_path(const int &index1, const int &index2, const int &dijkstraType);
+    std::list<Stop> dijkstra_path(const int &index1, const int &index2, const int &time, const int &dijkstraType);
 
     std::vector<Stop> findNearestStops2(const double latitude, const double longitude, const double &maxDist);
 

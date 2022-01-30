@@ -156,37 +156,57 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
     }
 }
 
-void Graph::bfs(int v) {
-// initialize all nodes as unvisited
-    for (int v=1; v<=n; v++) nodes[v].visited = false;
+void Graph::bfs(const int &index, const bool &time) {
+    // initialize all nodes as unvisited
+    for (int i=1; i<=n; i++)
+        nodes[i].visited = false;
     std::queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].dist = 0;
-    nodes[v].visited = true ;
+    q.push(index);
+    nodes[index].dist = 0;
+    nodes[index].visited = true ;
     while (!q.empty ()) { // while there are still unprocessed nodes
         int u = q.front (); q.pop (); // remove first element of q
-        //std::cout << u << " "; // show node order
         for (auto e : nodes[u].adj) {
+            if (time == 0 && e.line.back() == 'M')
+                continue;
             int w = e.dest;
             if (!nodes[w].visited) { // new node!
                 q.push(w);
-                nodes[w].visited = true ;
+                nodes[w].stop.setLine(e.line);
+                nodes[w].pred = u;
+                nodes[w].visited = true;
                 nodes[w].dist = nodes[u].dist + 1;
             }
         }
     }
 }
 
-std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int &dijkstraType) {
+std::list<Stop> Graph::bfs_path(const int &idx1, const int &idx2, const int &time)
+{
+    std::list<Stop> path;
+
+    bfs(idx1, (time == 1));
+
+    path.push_back(nodes.at(idx2).stop);
+    int v = idx2;
+    while (v != idx1) {
+        v = nodes[v].pred;
+        path.push_front(nodes.at(v).stop);
+    }
+
+    return path;
+}
+
+std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int &time, const int &dijkstraType) {
     switch(dijkstraType) {
         case 2:
-            dijkstraByDist(idx1, 0);
+            dijkstraByDist(idx1, (time == 1));
             break;
         case 3:
             //dijkstraByLine;
             break;
         case 4:
-            dijkstraByCost(idx1, 0);
+            dijkstraByCost(idx1, (time == 1));
             break;
         default:
             std::cout << "How did you get past input checking?" << std::endl;

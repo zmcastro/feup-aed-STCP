@@ -238,8 +238,10 @@ void STCP::showPath(const std::list<Stop> &stops) {
         std::cout << it->getName() << " " << it->getCode();
         auto auxIt = it;
         auxIt++;
-        if(auxIt == stops.end())
+        if (auxIt == stops.end()) {
+            std::cout << std::endl;
             break;
+        }
         it++;
         std::cout << " -> Linha " << it->getLine() << std::endl;
         it--;
@@ -269,19 +271,16 @@ void STCP::bestTripInterface() {
         if (inpCheck(userR)) {
             switch (userR) {
                 case 1:
-                    //bfs
+                    showPath(stopGraph.bfs_path(stopMap[stop1], stopMap[stop2], time));
                     break;
                 case 2:
-                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], userR));
-                    requestChosen = true;
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
                     break;
                 case 3:
                     std::cout << "Por implementar. Obrigada pela preferencia.\n";
-                    requestChosen = true;
                     break;
                 case 4:
-                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], userR));
-                    requestChosen = true;
+                    showPath(stopGraph.dijkstra_path(stopMap[stop1], stopMap[stop2], time, userR));
                     break;
                 case 0:
                     std::cout << "Aguarde, por favor.\n";
