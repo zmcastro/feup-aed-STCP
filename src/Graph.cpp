@@ -232,6 +232,8 @@ void Graph::bfs(const int &index, const bool &time) {
         for (auto e : nodes[u].adj) {
             if (time == 0 && e.line.back() == 'M')
                 continue;
+            if (time == 1 && e.line.back() != 'M')
+                continue;
             int w = e.dest;
             if (!nodes[w].visited) { // new node!
                 q.push(w);
