@@ -16,7 +16,6 @@ private:
     Graph stopGraph{2487, true};
 
     std::unordered_map<std::string, int> stopMap;
-    std::unordered_map<std::string, int> stopLineMap;
     std::vector<Line> lines;
 
 public:
@@ -29,6 +28,11 @@ public:
      * @param stops List of stops (1st one is the departure stop and the last one is the final stop)
      */
     void showPath(const std::list<Stop> &stops);
+    /**
+     * Shows the distance travelled in the calculated trip
+     * @param idx The index of the last stop
+     */
+    void showDistance(const int &idx);
     /**
      * Text based interface of the program to help the client finding what they are looking for
      */

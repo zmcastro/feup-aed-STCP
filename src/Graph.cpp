@@ -245,25 +245,9 @@ std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int
     return path;
 }
 
-double Graph::dijkstra_distance(const int &idx1, const int &idx2, const int &dijkstraType) {
-    switch(dijkstraType) {
-        case 2:
-            dijkstraByDist(idx1, 0);
-            break;
-        case 3:
-            dijkstraByLine(idx1, 0);
-            break;
-        case 4:
-            dijkstraByCost(idx1, 0);
-            break;
-        default:
-            std::cout << "How did you get past input checking?" << std::endl;
-            exit(1);
-    }
-
-    dijkstraByDist(idx1, 0);
-    if (nodes[idx2].dist == INF) return -1;
-    return nodes[idx2].dist;
+double Graph::dijkstra_distance(const int &idx) {
+    if (nodes[idx].dist == INF) return -1;
+    return nodes[idx].dist;
 }
 
 

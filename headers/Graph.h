@@ -51,27 +51,30 @@ public:
      * @param index The index of the stop provided
      * @param time Day or night
      */
-    void bfs(const int &index,  const bool &time);
+    void bfs(const int &index,  const bool &time); // time complexity: O(|V| + |E|)
     /**
-     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest distance between them
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest distance between them
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByDist(const int &index, const bool &time);
+    void dijkstraByDist(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
     /**
-     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByLine(const int &index, const bool &time);
+    void dijkstraByLine(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
     /**
-     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByCost(const int &index, const bool &time);
+    void dijkstraByCost(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
      /**
      * Add edge from source to destination with a certain weight
+      * @param src The index of the stop that will receive a new connection based on a bus line
+      * @param dest The index of the stop that the source stop will connect to
+      * @param lineCode the string code of the line that connects the two stops
      */
      void addEdge(int src, int dest, std::string lineCode);
     /**
@@ -123,13 +126,11 @@ public:
      */
     std::list<Stop> bfs_path(const int &idx1, const int &idx2, const int &time);
     /**
-     * Returns the distance from a stop to another using a given criteria
-     * @param index1 The index of the starting stop
-     * @param index2 The index of the ending stop
-     * @param dijkstraType The privileged criteria of the client to find the best trip between 2 stops
+     * Returns the distance from the source stop to another through the sum of the edges' combined weight
+     * @param index The index of the final desired stop
      * @return The distance between the 2 stops (-1, if there's no path between them)
      */
-    double dijkstra_distance(const int &index1, const int &index2, const int &dijkstraType);
+    double dijkstra_distance(const int &index);
     /**
      * Finds the best path according to the client choice (smallest distance, smallest number of lines or smallest number of zones)
      * @param index1 First stop
