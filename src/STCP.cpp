@@ -298,13 +298,3 @@ void STCP::bestTripInterface() {
     } while (!requestChosen);
 }
 
-void STCP::testOutput() {
-    /*std::cout << stopGraph.findStop(0).getName() << stopGraph.findStop(stopGraph.findNearest(0)).getName();
-    std::vector<Stop> res = stopGraph.findNearestStops(0, 2);
-    for (auto a : res)
-        std::cout << a.getName() << " " << a.getCode() << std::endl;
-    */
-
-}
-
-

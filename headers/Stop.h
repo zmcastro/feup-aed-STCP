@@ -23,6 +23,9 @@ public:
      * @param longitude  Longitude of the place where the stop is located
      */
     Stop(const std::string &code, const std::string &name, const std::string &zone, const double &latitude, const double &longitude);
+    /**
+     * Default constructor of a stop
+     */
     Stop();
     /**
      * Set the code of the stop

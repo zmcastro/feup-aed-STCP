@@ -9,12 +9,12 @@
 #include <iomanip>
 #include <string>
 /**
- * Returns the distance in km of 2 places given the coordinates of those 2 places
+ * Returns the distance in km between 2 places given the coordinates of those 2 places
  * @param lat1 Latitude of the 1st place
  * @param lon1 Longitude of the 1st place
  * @param lat2 Latitude of the 2nd place
  * @param lon2 Longitude of the 2nd place
- * @return
+ * @return distance between 2 coordinates in km
  */
 double haversine(double lat1, double lon1, double lat2, double lon2);
 
@@ -24,7 +24,8 @@ double haversine(double lat1, double lon1, double lat2, double lon2);
  */
 bool inpCheck(int &x);
 
-/** Simple function to clear screen, outputs 10 new lines
+/**
+ * Simple function to clear screen, outputs 10 new lines
  */
 void cleanScreen();
 

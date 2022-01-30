@@ -24,14 +24,11 @@ public:
      * Constructor of the STCP class - reads the stops and the lines and organizes them
      */
     STCP();
-    void addStop(const Stop &stop);
     /**
      * Shows the path between 2 stops
      * @param stops List of stops (1st one is the departure stop and the last one is the final stop)
      */
     void showPath(const std::list<Stop> &stops);
-
-    void testOutput();
     /**
      * Text based interface of the program to help the client finding what they are looking for
      */

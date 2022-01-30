@@ -40,28 +40,32 @@ class Graph {
     std::vector<Node> nodes; // The vector of nodes being represented
 
 public:
-    // Constructor: nr nodes and direction (default: undirected)
+    /**
+     * Constructor of the Graph class
+     * @param nodes The Number of nodes in the graph
+     * @param dir True if the graph is directed, false otherwise
+     */
     Graph(int nodes, bool dir = false);
     /**
-     *
-     * @param index
-     * @param time
+     * Breadth first search - Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of stops between them
+     * @param index The index of the stop provided
+     * @param time Day or night
      */
     void bfs(const int &index,  const bool &time);
     /**
-     * Find the path with the smallest distance possible from a stop to another
+     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest distance between them
      * @param index The index of the stop provided
      * @param time Night or day
      */
     void dijkstraByDist(const int &index, const bool &time);
     /**
-     * Find the path that passes throughout the smallest number of lines from a stop to another
+     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
      * @param index The index of the stop provided
      * @param time Night or day
      */
     void dijkstraByLine(const int &index, const bool &time);
     /**
-     * Find the path that passes throughout the smallest number of zones from a stop to another
+     * Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other
      * @param index The index of the stop provided
      * @param time Night or day
      */
@@ -71,14 +75,15 @@ public:
      */
      void addEdge(int src, int dest, std::string lineCode);
     /**
-     * Add node from
-     * @param stop
+     * Add a stop to the graph as a node by its index
+     * @param stop The stop being added
+     * @param idx The index of the stop in the vector of nodes
      */
     void addNode(const Stop &stop, const int &idx);
     /**
      * Given the number of the position in the vector of Nodes (idx) return the correspondent Stop
      * @param idx
-     * @return
+     * @return Stop with the given idx
      */
     Stop getStop(const int &idx);
     /**
@@ -110,16 +115,23 @@ public:
      */
     std::vector<Stop> findNearestStops2(const double latitude, const double longitude, const double &maxDist);
     /**
-     * TO DO
-     * @param idx1
-     * @param idx2
-     * @param time
-     * @return
+     * Find the path with the smallest number of stops from a stop to another
+     * @param idx1 The index of the starting stop
+     * @param idx2 The index of the ending stop
+     * @param time Day or night
+     * @return The path with the least number of stops between the 2 stops
      */
     std::list<Stop> bfs_path(const int &idx1, const int &idx2, const int &time);
+    /**
+     * Returns the distance from a stop to another using a given criteria
+     * @param index1 The index of the starting stop
+     * @param index2 The index of the ending stop
+     * @param dijkstraType The privileged criteria of the client to find the best trip between 2 stops
+     * @return The distance between the 2 stops (-1, if there's no path between them)
+     */
     double dijkstra_distance(const int &index1, const int &index2, const int &dijkstraType);
     /**
-     * Finds the best path according to the client choice
+     * Finds the best path according to the client choice (smallest distance, smallest number of lines or smallest number of zones)
      * @param index1 First stop
      * @param index2 Final stop
      * @param time Night or day
@@ -127,11 +139,6 @@ public:
      * @return The best path according to the criteria
      */
     std::list<Stop> dijkstra_path(const int &index1, const int &index2, const int &time, const int &dijkstraType);
-    /**
-     * Shows the stops that make the path from a stop to another
-     * @param stops List of the stops that make the path from a stop to another (depends on the chosen criteria)
-     */
-    void showPath(const std::list<Stop> &stops);
 };
 
 
