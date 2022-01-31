@@ -242,7 +242,7 @@ void STCP::stopManagementHandler() {
                 case 1:
                     std::cout << "Qual é o código da paragem que pretende ativar? " << std::endl;
                     std::cin >> stopCode;
-                    stopGraph.disableStop(stopMap[stopCode]);
+                    stopGraph.enableStop(stopMap[stopCode]);
                     std::cout << "Paragem ativada. " << std::endl;
                     break;
                 case 2:
