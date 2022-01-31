@@ -47,36 +47,36 @@ public:
      */
     Graph(int nodes, bool dir = false);
     /**
-     * Breadth first search - Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of stops between them
+     * Breadth first search - Sets the graph in way that the distance from the given stop and each of the others is based on the smallest number of stops between them. Time complexity: O(|V| + |E|)
      * @param index The index of the stop provided
      * @param time Day or night
      */
-    void bfs(const int &index,  const bool &time); // time complexity: O(|V| + |E|)
+    void bfs(const int &index,  const bool &time);
     /**
-     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest distance between them
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest distance between them. Time complexity: O(|E|*log(|V|))
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByDist(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
+    void dijkstraByDist(const int &index, const bool &time);
     /**
-    * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of usage of lines not equal to the desired one
+    * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of usage of lines not equal to the desired one. Time complexity: O(|E|*log(|V|))
     * @param index The index of the stop provided
     * @param time Night or day
      * @param lineCode The string code of the desired line
     */
-    void dijkstraByLine(const int &index, const bool &time, const std::string &lineCode); // time complexity: O(|E|*log(|V|))
+    void dijkstraByLine(const int &index, const bool &time, const std::string &lineCode);
     /**
-     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of lines used to travel between them. Time complexity: O(|E|*log(|V|))
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByLessLines(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
+    void dijkstraByLessLines(const int &index, const bool &time);
     /**
-     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other
+     * Sets the graph up in way that the distance from the given stop and each of the others is based on the smallest number of zones crossed going from one to the other. Time complexity: O(|E|*log(|V|))
      * @param index The index of the stop provided
      * @param time Night or day
      */
-    void dijkstraByCost(const int &index, const bool &time); // time complexity: O(|E|*log(|V|))
+    void dijkstraByCost(const int &index, const bool &time);
      /**
      * Add edge from source to destination with a certain weight
       * @param src The index of the stop that will receive a new connection based on a bus line
@@ -110,14 +110,14 @@ public:
      */
     int findNearest(const int &src, const std::string &line);
     /**
-     * Find the stops with a given maximum distance from a provided stop
+     * Find the stops with a given maximum distance from a provided stop. Time complexity: O(|V|)
      * @param src The stop provided by the client
      * @param maxDist The maximum distance between the coordinates of the stop provided by the client and the other stops
      * @return All the stops that are in a distance (km) smaller or equal to the distance provided from the stop given
      */
     std::vector<Stop> findNearestStops(const int &src, const double &maxDist);
     /**
-     * Find the stops with a given maximum distance from provided coordinates
+     * Find the stops with a given maximum distance from provided coordinates. Time complexity: O(|V|)
      * @param latitude The latitude provided by the client
      * @param longitude The longitude provided by the client
      * @param maxDist The maximum distance between the coordinates provided by the client and the other stops
