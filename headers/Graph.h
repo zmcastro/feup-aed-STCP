@@ -125,6 +125,18 @@ public:
      */
     std::vector<Stop> findNearestStops2(const double latitude, const double longitude, const double &maxDist);
     /**
+     * Disables a stop through its node index
+     * @param idx
+     * @return Stop with the given idx
+     */
+    void enableStop(const int &index);
+    /**
+     * Disables a stop through its node index
+     * @param idx
+     * @return Stop with the given idx
+     */
+    void disableStop(const int &index);
+    /**
      * Find the path with the smallest number of stops from a stop to another
      * @param idx1 The index of the starting stop
      * @param idx2 The index of the ending stop

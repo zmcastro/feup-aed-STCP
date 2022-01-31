@@ -4,8 +4,9 @@
 
 #include "../headers/Stop.h"
 
-Stop::Stop(const std::string &code, const std::string &name, const std::string &zone, const double &latitude, const double &longitude) : code(code), zone(zone), name(name), latitude(latitude), longitude(longitude) { }
-Stop::Stop() : code(" "), name(" "), zone(""), latitude(0), longitude(0) { };
+Stop::Stop(const std::string &code, const std::string &name, const std::string &zone, const double &latitude, const double &longitude) : code(code), zone(zone), name(name), latitude(latitude), longitude(longitude), functioning(
+        true) { }
+Stop::Stop() : code(" "), name(" "), zone(""), latitude(0), longitude(0), functioning(true) { };
 
 void Stop::setCode(const std::string &code) {
     this->code = code;
@@ -34,3 +35,7 @@ std::string Stop::getZone() const { return zone; }
 double Stop::getLatitude() const { return latitude; }
 double Stop::getLongitude() const { return longitude; }
 std::string Stop::getLine() const { return lineCode; }
+
+void Stop::enable() { this->functioning = true; }
+void Stop::disable() { this->functioning = false;}
+bool Stop::isEnabled() { return this->functioning; }

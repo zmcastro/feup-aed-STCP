@@ -12,6 +12,7 @@ private:
     std::string code, name, zone;
     double latitude, longitude;
     std::string lineCode;
+    bool functioning;
 
 public:
     /**
@@ -93,7 +94,19 @@ public:
      * @return Code of the line of the stop
      */
     std::string getLine() const;
-
+    /**
+     * Enables the stop and leaves it as functioning
+     */
+    void enable();
+    /**
+     * Disables the stop and leaves it as non-functioning
+     */
+     void disable();
+    /**
+    * Get functioning status of the stop
+    * @return True if the stops is functioning, false otherwise
+    */
+     bool isEnabled();
     /**
      * Operator == overload so that it's possible to check if two stops are either the same or not (based on their code)
      * @param s Stop
@@ -102,6 +115,7 @@ public:
     bool operator==(const Stop& s) {
         return this->code == s.code;
     }
+
 };
 
 

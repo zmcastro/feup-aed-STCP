@@ -134,6 +134,7 @@ void STCP::mainInterface()
         std::cout << "    Bem Vind@ a interface digital nao-oficial da STCP. O que pretende fazer? " << '\n' <<
         "    1.) Ver Paragens perto de mim" << '\n' <<
         "    2.) Melhor Percurso entre 2 locais" << '\n' <<
+        "    3.) Organizar stops" << '\n' <<
         "    0.) Sair" << std::endl;
 
         if (inpCheck(userR)) {
@@ -143,6 +144,9 @@ void STCP::mainInterface()
                     break;
                 case 2:
                     bestTripInterface();
+                    break;
+                case 3:
+                    stopManagementHandler();
                     break;
                 case 0:
                     std::cout << "Obrigado pela sua preferencia! Esperamos encontra-l@ em breve novamente :)";
@@ -162,7 +166,6 @@ void STCP::mainInterface()
         }
     } while (!requestChosen);
 }
-
 
 void STCP::showStopsNear(std::vector<Stop> result){
     for (auto & i : result)
@@ -223,6 +226,49 @@ void STCP::stopsNearInterface() {
     } while (!requestChosen);
 }
 
+void STCP::stopManagementHandler() {
+    bool requestChosen = false;
+    int userR;
+    std::string stopCode;
+
+    do
+    {
+        std::cout << "    O que pretende fazer? \n"
+                     "    1.) Ativar uma paragem \n"
+                     "    2.) Desativar uma paragem  \n"
+                     "    0.) Voltar ao menu\n" << std::flush;
+        if (inpCheck(userR)) {
+            switch (userR) {
+                case 1:
+                    std::cout << "Qual é o código da paragem que pretende ativar? " << std::endl;
+                    std::cin >> stopCode;
+                    stopGraph.disableStop(stopMap[stopCode]);
+                    std::cout << "Paragem ativada. " << std::endl;
+                    break;
+                case 2:
+                    std::cout << "Qual é o código da paragem que pretende desativar? " << std::endl;
+                    std::cin >> stopCode;
+                    stopGraph.disableStop(stopMap[stopCode]);
+                    std::cout << "Paragem desativada. " << std::endl;
+                    break;
+                case 0:
+                    std::cout << "Aguarde, por favor.\n";
+                    requestChosen = true;
+                    break;
+                default:
+                    std::cout <<"Insira uma opcao valida. (1/2/0)\n" << std::flush;
+                    std::cin.clear();
+                    std::cin.ignore(INFstream, '\n');
+            }
+        }
+        else {
+            std::cout << "Insira uma opcao valida. (1/2/0)" << std::flush;
+            std::cin.clear();
+            std::cin.ignore(INFstream, '\n');
+        }
+    } while (!requestChosen);
+}
+
 void STCP::showPath(const std::list<Stop> &stops) {
     for (auto it = stops.begin(); it != stops.end(); it++) {
         std::cout << it->getName() << " " << it->getCode();
@@ -257,7 +303,7 @@ void STCP::bestTripInterface() {
     {
         std::cout << "    1.) Menos Paragens" << '\n' << "    2.) Menor Distancia" << '\n'
         <<  "    3.) Menos mudancas de Autocarro (Linha)" << '\n' <<  "    4.) Mais Economico" << '\n'
-        << "    5.) Por maior uso de linha específica" << '\n' << "    0.) Voltar ao menu" << '\n' << std::flush;
+        << "    5.) Maior uso de linha específica" << '\n' << "    0.) Voltar ao menu" << '\n' << std::flush;
 
         if (inpCheck(userR)) {
             switch (userR) {

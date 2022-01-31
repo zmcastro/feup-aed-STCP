@@ -51,6 +51,10 @@ public:
      * Text based interface where the client will give coordinates and a distance in order to receive the stops near that place
      */
     void nearMeByCoorHandler();
+    /**
+     * Text based interface where the client will manage the existing stops in the graph
+     */
+    void stopManagementHandler();
 };
 
 #endif //AEDPROJ2_STCP_H

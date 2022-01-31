@@ -74,6 +74,13 @@ std::vector<Stop> Graph::findNearestStops2(const double latitude, const double l
     return res;
 }
 
+void Graph::enableStop(const int &index) {
+    nodes[index].stop.enable();
+}
+void Graph::disableStop(const int &index) {
+    nodes[index].stop.disable();
+}
+
 void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if night
 {
     std::set<std::pair<double, int>> q;
@@ -96,6 +103,8 @@ void Graph::dijkstraByDist(const int &index, const bool &time) // 0 if day, 1 if
             if (time == 0 && e.line.back() == 'M')
                 continue;
             else if (time == 1 && e.line.back() != 'M')
+                continue;
+            else if (!nodes[u].stop.isEnabled())
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -133,6 +142,8 @@ void Graph::dijkstraByLine(const int &index, const bool &time, const std::string
                 continue;
             else if (time == 1 && e.line.back() != 'M')
                 continue;
+            else if (!nodes[u].stop.isEnabled())
+                continue;
             int v = e.dest;
             double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
@@ -168,6 +179,8 @@ void Graph::dijkstraByLessLines(const int &index, const bool &time) // 0 if day,
             if (time == 0 && e.line.back() == 'M')
                 continue;
             else if (time == 1 && e.line.back() != 'M')
+                continue;
+            else if (!nodes[u].stop.isEnabled())
                 continue;
             int v = e.dest;
             double w = e.weight;
@@ -205,6 +218,8 @@ void Graph::dijkstraByCost(const int &index, const bool &time) // 0 if day, 1 if
                 continue;
             else if (time == 1 && e.line.back() != 'M')
                 continue;
+            else if (!nodes[u].stop.isEnabled())
+                continue;
             int v = e.dest;
             double w = e.weight;
             if (!nodes[v].visited && nodes[u].dist + w < nodes[v].dist) {
@@ -233,6 +248,8 @@ void Graph::bfs(const int &index, const bool &time) {
                 continue;
             else if (time == 1 && e.line.back() != 'M')
                 continue;
+            else if (!nodes[u].stop.isEnabled())
+                continue;
             int w = e.dest;
             if (!nodes[w].visited) { // new node!
                 q.push(w);
@@ -249,6 +266,12 @@ std::list<Stop> Graph::bfs_path(const int &idx1, const int &idx2, const int &tim
 {
     std::list<Stop> path;
 
+    if (!nodes[idx1].stop.isEnabled())
+    {
+        std::cout << "A paragem não está ativa de momento. Tente outra vez." << std::endl;
+        return path;
+    }
+
     bfs(idx1, (time == 1));
 
     path.push_back(nodes.at(idx2).stop);
@@ -263,7 +286,13 @@ std::list<Stop> Graph::bfs_path(const int &idx1, const int &idx2, const int &tim
 
 std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int &time, const int &dijkstraType) {
     std::string lineCode;
+    std::list<Stop> path;
 
+    if (!nodes[idx1].stop.isEnabled())
+    {
+        std::cout << "A paragem não está ativa de momento. Tente outra vez." << std::endl;
+        return path;
+    }
     switch(dijkstraType) {
         case 2:
             dijkstraByDist(idx1, (time == 1));
@@ -283,7 +312,6 @@ std::list<Stop> Graph::dijkstra_path(const int &idx1, const int &idx2, const int
             std::cout << "How did you get past input checking?" << std::endl;
             exit(1);
     }
-    std::list<Stop> path;
 
     if (nodes[idx2].dist == INF) return path;
     path.push_back(nodes.at(idx2).stop);
