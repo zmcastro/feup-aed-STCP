@@ -1,3 +1,2 @@
 # projAED2
-c++ based project using graphs!1 funnn
-#gostosa 
+C++ project that incorporates Porto's STCP public transportation stops, routes and schedules to design the best possible path according to the user's needs.
